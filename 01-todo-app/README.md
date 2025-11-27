@@ -2,6 +2,9 @@
 
 A modern, feature-rich TODO application built with Django, featuring a sleek dark-mode UI and full CRUD functionality.
 
+<img width="707" height="321" alt="Get to do it app home page" src="https://github.com/user-attachments/assets/ebe60253-32b6-4078-a47e-00b8e273cb6d" />
+
+
 ## 📋 Description
 
 This TODO application allows users to manage their tasks efficiently with the following features:
