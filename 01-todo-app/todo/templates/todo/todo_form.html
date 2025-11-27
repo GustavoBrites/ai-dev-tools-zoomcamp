@@ -1,0 +1,26 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<div class="card fade-in" style="max-width: 600px; margin: 0 auto;">
+    <h2 style="margin-top: 0;">{% if form.instance.pk %}Edit Task{% else %}New Task{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+            <small style="color: var(--text-muted); display: block; margin-top: 0.25rem;">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+            <div style="color: var(--danger); margin-top: 0.25rem;">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+            <a href="{% url 'todo-list' %}" class="btn" style="background-color: #334155; color: white;">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save Task</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
