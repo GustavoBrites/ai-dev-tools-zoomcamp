@@ -1,4 +1,4 @@
-{% extends 'todo/base.html' %}
+﻿{% extends 'todo/base.html' %}
 
 {% block content %}
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
@@ -7,41 +7,35 @@
 </div>
 
 {% if todos %}
-{% for todo in todos %}
-<div class="card fade-in"
-    style="animation-delay: {{ forloop.counter0|add:1|get_digit:1 }}00ms; display: flex; justify-content: space-between; align-items: center; opacity: 0.9;">
-    <div style="flex-grow: 1;">
-        <div style="display: flex; align-items: center; gap: 1rem;">
-            <a href="{% url 'todo-toggle' todo.pk %}" style="text-decoration: none; color: inherit;">
-                {% if todo.is_resolved %}
-                <span style="color: var(--success); font-size: 1.5rem;">◉</span>
-                {% else %}
-                <span style="color: var(--text-muted); font-size: 1.5rem;">○</span>
-                {% endif %}
-            </a>
-            <div>
-                <h3
-                    style="margin: 0; {% if todo.is_resolved %}text-decoration: line-through; color: var(--text-muted);{% endif %}">
-                    {{ todo.title }}</h3>
-                {% if todo.description %}
-                <p style="margin: 0.5rem 0 0; color: var(--text-muted); font-size: 0.9rem;">{{
-                    todo.description|truncatechars:100 }}</p>
-                {% endif %}
-                <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Due: {{
-                    todo.due_date|date:"M d, Y H:i" }}</small>
+    {% for todo in todos %}
+    <div class="card fade-in" style="animation-delay: {{ forloop.counter0|add:1|get_digit:1 }}00ms; display: flex; justify-content: space-between; align-items: center; opacity: 0.9;">
+        <div style="flex-grow: 1;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <a href="{% url 'todo-toggle' todo.pk %}" style="text-decoration: none; color: inherit;">
+                    {% if todo.is_resolved %}
+                    <span style="color: var(--success); font-size: 1.5rem;">&#9673;</span>
+                    {% else %}
+                    <span style="color: var(--text-muted); font-size: 1.5rem;">&#9675;</span>
+                    {% endif %}
+                </a>
+                <div>
+                    <h3 style="margin: 0; {% if todo.is_resolved %}text-decoration: line-through; color: var(--text-muted);{% endif %}">{{ todo.title }}</h3>
+                    {% if todo.description %}
+                    <p style="margin: 0.5rem 0 0; color: var(--text-muted); font-size: 0.9rem;">{{ todo.description|truncatechars:100 }}</p>
+                    {% endif %}
+                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Due: {{ todo.due_date|date:"M d, Y H:i" }}</small>
+                </div>
             </div>
         </div>
+        <div style="display: flex; gap: 0.5rem;">
+            <a href="{% url 'todo-update' todo.pk %}" class="btn btn-sm" style="background-color: #3b82f6; color: white;">Edit</a>
+            <a href="{% url 'todo-delete' todo.pk %}" class="btn btn-sm btn-danger">Delete</a>
+        </div>
     </div>
-    <div style="display: flex; gap: 0.5rem;">
-        <a href="{% url 'todo-update' todo.pk %}" class="btn btn-sm"
-            style="background-color: #3b82f6; color: white;">Edit</a>
-        <a href="{% url 'todo-delete' todo.pk %}" class="btn btn-sm btn-danger">Delete</a>
-    </div>
-</div>
-{% endfor %}
+    {% endfor %}
 {% else %}
-<div style="text-align: center; padding: 4rem; color: var(--text-muted);">
-    <p>No tasks yet. Time to get productive!</p>
-</div>
+    <div style="text-align: center; padding: 4rem; color: var(--text-muted);">
+        <p>No tasks yet. Time to get productive!</p>
+    </div>
 {% endif %}
 {% endblock %}
